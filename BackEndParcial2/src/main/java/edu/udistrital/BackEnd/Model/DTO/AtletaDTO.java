@@ -6,7 +6,7 @@ package edu.udistrital.BackEnd.Model.DTO;
 
 /**
  *
- * @author natha
+ * @author nath
  */
 public class AtletaDTO {
     

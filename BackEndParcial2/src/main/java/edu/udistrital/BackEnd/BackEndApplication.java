@@ -1,4 +1,4 @@
-package udistrital.edu.BackEnd;
+package edu.udistrital.BackEnd;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

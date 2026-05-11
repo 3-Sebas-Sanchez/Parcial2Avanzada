@@ -4,10 +4,15 @@
  */
 package edu.udistrital.BackEnd.Service;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
 /**
  *
  * @author natha
  */
+@Service
+@RequiredArgsConstructor
 public class AtletaService {
     
 }

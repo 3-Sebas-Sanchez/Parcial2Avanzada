@@ -4,29 +4,17 @@
  */
 package edu.udistrital.BackEnd.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 import lombok.Data;
 
 /**
  *
  * @author nath
  */
-@Entity
-@EqualsAndHashCode(callSuper = true)
-@Table(name = "atletas")
 @Data
-public class Atleta {
-    
-    
+public abstract class PersonaResponse {
+    private String identificacion;
+    private String nombre;
     private Integer edad;
-
-    private String categoria;
-
-    private String especialidad;
-
-    private Boolean modalidadCross;
-    
-    private String foto;
-    
+    private String genero;
+    private String correo;
 }

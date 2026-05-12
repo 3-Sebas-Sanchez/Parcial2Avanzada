@@ -4,13 +4,19 @@
  */
 package edu.udistrital.BackEnd.Model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 /**
  *
  * @author nath
  */
 @Data
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
 public abstract class PersonaResponse {
     private String identificacion;
     private String nombre;

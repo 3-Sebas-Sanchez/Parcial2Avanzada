@@ -48,7 +48,7 @@ public abstract class Persona {
     
     @NotNull
     private Integer edad;
-    
+   
     private Boolean personaActiva = true; 
     
 }

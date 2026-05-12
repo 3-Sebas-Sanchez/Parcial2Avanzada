@@ -22,16 +22,16 @@ import org.springframework.data.repository.query.Param;
 public interface AtletaRepository extends JpaRepository<Persona, Long>{
     
     //Microservicio: Consultar triatleta por identificacion
-    Optional<Persona> FindById(String id);
+    Optional<Persona> findById(String id);
     
     //Microservicio: Consultar grupos de triatletas por género
-    List<Persona>FindByGenero(String genero);
+    List<Persona>findByGenero(String genero);
     //Microservicio: Consultar grupos de triatletas por categoría
-    List <Persona>FindByCategoria (String categoria);
+    List <Persona>findByCategoria (String categoria);
     //Microservicio: Consultar grupos de triatletas por especialidad
-    List<Persona>FindByEspecialidad (String especialidad);
+    List<Persona>findByEspecialidad (String especialidad);
     //Microservicio: Consultar grupos de triatletas por modalidad cross
-    List<Persona>FindByModalidadCross (Boolean modalidadCross);
+    List<Persona>findByModalidadCross (Boolean modalidadCross);
     
     //Microservicio: Eliminar un triatleta
     @Transactional

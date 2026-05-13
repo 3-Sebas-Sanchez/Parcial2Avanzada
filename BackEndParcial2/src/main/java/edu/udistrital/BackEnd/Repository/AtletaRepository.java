@@ -5,7 +5,6 @@
 package edu.udistrital.BackEnd.Repository;
 
 import edu.udistrital.BackEnd.Model.AtletaDTO;
-import edu.udistrital.BackEnd.Model.Persona;
 import jakarta.transaction.Transactional;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,63 +15,153 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 /**
- *
+ * Repositorio para la entidad AtletaDTO.
+ * 
+ * Proporciona operaciones de acceso a datos para atletas incluyendo:
+ * - Búsquedas por identificación
+ * - Filtrados por diversos criterios (género, categoría, especialidad, modalidad cross)
+ * - Eliminación
+ * - Actualizaciones parciales y completas
+ * 
+ * Los métodos usan identificación (cédula/número único) como identificador principal
+ * en lugar de Long id para mantener consistencia con el dominio del negocio.
+ * 
  * @author nath
  */
 @Repository
-public interface AtletaRepository extends JpaRepository<AtletaDTO, Long>{
+public interface AtletaRepository extends JpaRepository<AtletaDTO, Long> {
     
-    //Microservicio: Consultar triatleta por identificacion
-    Optional<AtletaDTO> findById(String id);
+    /**
+     * Busca un triatleta por su número de identificación.
+     * 
+     * @param identificacion Número de identificación único del triatleta
+     * @return Optional con el triatleta si existe
+     */
+    Optional<AtletaDTO> findByIdentificacion(String identificacion);
     
-    //Microservicio: Consultar grupos de triatletas por género
-    List<AtletaDTO>findByGenero(String genero);
-    //Microservicio: Consultar grupos de triatletas por categoría
-    List <AtletaDTO>findByCategoria (String categoria);
-    //Microservicio: Consultar grupos de triatletas por especialidad
-    List<AtletaDTO>findByEspecialidad (String especialidad);
-    //Microservicio: Consultar grupos de triatletas por modalidad cross
-    List<AtletaDTO>findByModalidadCross (Boolean modalidadCross);
+    /**
+     * Lista todos los triatletas de un género específico.
+     * 
+     * @param genero Género a buscar ('M' o 'F')
+     * @return Lista de triatletas del género especificado
+     */
+    List<AtletaDTO> findByGenero(String genero);
     
-    //Microservicio: Eliminar un triatleta
+    /**
+     * Lista todos los triatletas de una categoría específica.
+     * 
+     * @param categoria Categoría a buscar
+     * @return Lista de triatletas de la categoría especificada
+     */
+    List<AtletaDTO> findByCategoria(String categoria);
+    
+    /**
+     * Lista todos los triatletas de una especialidad específica.
+     * 
+     * @param especialidad Especialidad a buscar
+     * @return Lista de triatletas de la especialidad especificada
+     */
+    List<AtletaDTO> findByEspecialidad(String especialidad);
+    
+    /**
+     * Lista triatletas por modalidad Cross.
+     * 
+     * @param modalidadCross true para triatletas con Cross, false para sin Cross
+     * @return Lista de triatletas con la modalidad Cross especificada
+     */
+    List<AtletaDTO> findByModalidadCross(Boolean modalidadCross);
+    
+    /**
+     * Elimina un triatleta por su número de identificación.
+     * 
+     * @param identificacion Número de identificación del triatleta a eliminar
+     */
     @Transactional
     void deleteByIdentificacion(String identificacion);
     
-    
-    //Microservicio:  Modificar nombre del triatleta
+    /**
+     * Actualiza SOLO el nombre de un triatleta.
+     * 
+     * @param identificacion Número de identificación del triatleta
+     * @param nuevoNombre Nuevo nombre
+     * @return Número de filas afectadas (0 o 1)
+     */
     @Modifying
     @Transactional
-    @Query ("UPDATE AtletaDTO a SET a.nombre = :nuevoNombre WHERE a.identificacion =:identificacion")
-    int actualizarNombre(@Param ("identificacion") String identificacion, @Param ("nuevoNombre") String nuevoNombre);
+    @Query("UPDATE AtletaDTO a SET a.nombre = :nuevoNombre WHERE a.identificacion = :identificacion")
+    int actualizarNombre(
+            @Param("identificacion") String identificacion, 
+            @Param("nuevoNombre") String nuevoNombre);
     
-    //Microservicio:  Modificar id del triatleta
+    /**
+     * Actualiza SOLO la identificación de un triatleta.
+     * 
+     * Cambia el número de identificación manteniendo todos los demás datos.
+     * 
+     * @param identificacionActual Número de identificación actual
+     * @param nuevaIdentificacion Nuevo número de identificación
+     * @return Número de filas afectadas (0 o 1)
+     */
     @Modifying
     @Transactional
-    @Query ("UPDATE AtletaDTO a SET a.identificacion = :nuevaIdentificacion WHERE a.identificacion =:identificacion")
-    int actualizarIdentificacion(@Param ("identificacion") Long id, @Param("nuevaIdentificacion") String nuevaIdentififcacion);
+    @Query("UPDATE AtletaDTO a SET a.identificacion = :nuevaIdentificacion WHERE a.identificacion = :identificacionActual")
+    int actualizarIdentificacion(
+            @Param("identificacionActual") String identificacionActual, 
+            @Param("nuevaIdentificacion") String nuevaIdentificacion);
     
-    //Microservicio:  Modificar categoria del triatleta
+    /**
+     * Actualiza SOLO la categoría de un triatleta.
+     * 
+     * @param identificacion Número de identificación del triatleta
+     * @param nuevaCategoria Nueva categoría
+     * @return Número de filas afectadas (0 o 1)
+     */
     @Modifying
     @Transactional
-    @Query ("UPDATE AtletaDTO a SET a.categoria =:nuevaCategoria WHERE a.identificacion =:identificacion")
-    int actualizarCategoria(@Param ("identificacion") String identificacion, @Param ("nuevaCategoria") String nuevaCategoria);
+    @Query("UPDATE AtletaDTO a SET a.categoria = :nuevaCategoria WHERE a.identificacion = :identificacion")
+    int actualizarCategoria(
+            @Param("identificacion") String identificacion, 
+            @Param("nuevaCategoria") String nuevaCategoria);
     
-   @Modifying
-   @Transactional
-   @Query("UPDATE AtletaDTO a SET a.nombre = :nombre, a.identificacion = :identificacion, a.genero = :genero, a.correo = :correo, a.edad = :edad, a.categoria = :categoria, a.especialidad = :especialidad, a.modalidadCross = :modalidadCross, a.foto = :foto WHERE a.id = :id")
-   int actualizarAtletaCompleto(
-       @Param("id") Long id,
-       @Param("nombre") String nombre,
-       @Param("identificacion") String identificacion,
-       @Param("genero") String genero,
-       @Param("correo") String correo,
-       @Param("edad") Integer edad,
-       @Param("categoria") String categoria,
-       @Param("especialidad") String especialidad,
-       @Param("modalidadCross") Boolean modalidadCross,
-       @Param("foto") String foto
-   );
-    
-    
-    
+    /**
+     * Actualiza TODOS los campos de un triatleta (actualización completa PUT).
+     * 
+     * Reemplaza todos los campos del triatleta identificado por su número de identificación actual.
+     * 
+     * @param identificacion Número de identificación ACTUAL del triatleta
+     * @param nombre Nuevo nombre
+     * @param identificacion Nueva identificación
+     * @param genero Nuevo género
+     * @param correo Nuevo correo
+     * @param edad Nueva edad
+     * @param categoria Nueva categoría
+     * @param especialidad Nueva especialidad
+     * @param modalidadCross Nueva modalidad Cross
+     * @param foto Nueva foto (base64)
+     * @return Número de filas afectadas (0 o 1)
+     */
+    @Modifying
+    @Transactional
+    @Query("UPDATE AtletaDTO a SET a.nombre = :nombre, " +
+           "a.identificacion = :nuevaIdentificacion, " +
+           "a.genero = :genero, " +
+           "a.correo = :correo, " +
+           "a.edad = :edad, " +
+           "a.categoria = :categoria, " +
+           "a.especialidad = :especialidad, " +
+           "a.modalidadCross = :modalidadCross, " +
+           "a.foto = :foto " +
+           "WHERE a.identificacion = :identificacion")
+    int actualizarAtletaCompleto(
+            @Param("identificacion") String identificacion,
+            @Param("nombre") String nombre,
+            @Param("nuevaIdentificacion") String nuevaIdentificacion,
+            @Param("genero") String genero,
+            @Param("correo") String correo,
+            @Param("edad") Integer edad,
+            @Param("categoria") String categoria,
+            @Param("especialidad") String especialidad,
+            @Param("modalidadCross") Boolean modalidadCross,
+            @Param("foto") String foto
+    );
 }

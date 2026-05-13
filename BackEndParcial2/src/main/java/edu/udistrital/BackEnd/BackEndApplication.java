@@ -20,9 +20,18 @@ public class BackEndApplication {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:3000", "http://localhost:4200")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+
+                        .allowedOrigins(
+                            "http://localhost:3000",
+                            "http://localhost:4200",
+                            "http://localhost:5500",    
+                            "http://127.0.0.1:5500"
+                        )
+                        // Métodos HTTP permitidos
+                        .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
+                        // Headers permitidos
                         .allowedHeaders("*")
+                        // Permite enviar credenciales (cookies, headers de autorización)
                         .allowCredentials(true);
             }
         };

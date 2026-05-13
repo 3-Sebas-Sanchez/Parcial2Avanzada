@@ -35,7 +35,13 @@ import java.util.List;
  */
 public class AtletaRestController {
     
-    private final AtletaService atletaService;
+    private  AtletaService atletaService;
+
+    public AtletaRestController(AtletaService atletaService) {
+        this.atletaService = atletaService;
+    }
+    
+    
     
         @RequestMapping(value = "/atleta", method = RequestMethod.POST)
         public ResponseEntity<AtletaResponse> registrar(@Valid @RequestBody AtletaDTO dto) {

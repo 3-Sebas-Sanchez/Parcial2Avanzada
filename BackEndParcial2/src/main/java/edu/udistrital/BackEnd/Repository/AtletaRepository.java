@@ -47,8 +47,8 @@ public interface AtletaRepository extends JpaRepository<Persona, Long>{
     //Microservicio:  Modificar id del triatleta
     @Modifying
     @Transactional
-    @Query ("UPDATE Persona p SET p.identificacion =: nuevaIdentificacion  WHERE p.id =:id")
-    int actualizarIdentificacion(@Param ("id") Long id, @Param("nuevaIdentificacion") String nuevaIdentififcacion);
+    @Query ("UPDATE Persona p SET p.identificacion =: nuevaIdentificacion  WHERE p.identificacion =:identificacion")
+    int actualizarIdentificacion(@Param ("identificacion") Long id, @Param("nuevaIdentificacion") String nuevaIdentififcacion);
     
     //Microservicio:  Modificar categoria del triatleta
     @Modifying

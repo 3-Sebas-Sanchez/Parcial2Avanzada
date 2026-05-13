@@ -1,9 +1,6 @@
-/* =============================================
-   TRIATLÓN — Sistema de Gestión
-   Archivo: styles.css
-   ============================================= */
 
-/* ---- VARIABLES ---- */
+
+/* ---- Variables de estilos---- */
 :root {
   --bg: #050A14;
   --surface: #0D1829;
@@ -18,7 +15,7 @@
   --radius: 12px;
 }
 
-/* ---- RESET ---- */
+/* ---- retetear ---- */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
@@ -29,7 +26,7 @@ body {
   overflow-x: hidden;
 }
 
-/* ---- BACKGROUND ---- */
+/* ---- Fondo ---- */
 body::before {
   content: '';
   position: fixed;
@@ -42,7 +39,7 @@ body::before {
 }
 
 /* =============================================
-   SIDEBAR
+   navegacion
    ============================================= */
 .sidebar {
   position: fixed;
@@ -138,7 +135,7 @@ body::before {
 }
 
 /* =============================================
-   MAIN / PÁGINAS
+   paginas
    ============================================= */
 .main {
   margin-left: 240px;
@@ -151,7 +148,7 @@ body::before {
 .page { display: none; }
 .page.active { display: block; }
 
-/* ---- Page Header ---- */
+/* ---- cabecera ---- */
 .page-header {
   display: flex;
   align-items: flex-start;
@@ -179,7 +176,7 @@ body::before {
 }
 
 /* =============================================
-   BOTONES
+  botones
    ============================================= */
 .btn {
   display: inline-flex;
@@ -240,7 +237,7 @@ body::before {
 .btn-sm { padding: 7px 14px; font-size: 12px; }
 
 /* =============================================
-   CARDS
+   cards 
    ============================================= */
 .card {
   background: var(--card);
@@ -261,14 +258,14 @@ body::before {
 }
 
 /* =============================================
-   GRID
+   Grid
    ============================================= */
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
 .grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
 
 /* =============================================
-   STAT CARDS
+    Cards de stats
    ============================================= */
 .stat-card {
   background: var(--card);
@@ -350,7 +347,7 @@ body::before {
 .form-control option { background: var(--surface); }
 
 /* =============================================
-   TABLA
+   Tabla
    ============================================= */
 .table-wrap {
   overflow-x: auto;
@@ -390,8 +387,7 @@ tbody tr:last-child td { border-bottom: none; }
 tbody tr:hover { background: rgba(0,212,255,0.03); }
 
 /* =============================================
-   BADGES
-   ============================================= */
+ 
 .badge {
   display: inline-flex;
   align-items: center;
@@ -411,7 +407,7 @@ tbody tr:hover { background: rgba(0,212,255,0.03); }
 .badge-f    { background: rgba(255,100,200,0.12); color: #FF80D5; border: 1px solid rgba(255,100,200,0.3); }
 
 /* =============================================
-   AVATAR
+   avatar
    ============================================= */
 .avatar {
   width: 34px; height: 34px;
@@ -432,7 +428,7 @@ tbody tr:hover { background: rgba(0,212,255,0.03); }
 .athlete-cell { display: flex; align-items: center; gap: 12px; }
 
 /* =============================================
-   MODAL
+   Modal
    ============================================= */
 .modal-overlay {
   display: none;
@@ -489,7 +485,7 @@ tbody tr:hover { background: rgba(0,212,255,0.03); }
 .modal-close:hover { color: var(--accent2); }
 
 /* =============================================
-   CARRUSEL DE ESPECIALIDADES
+   Carrusel de especialidades
    ============================================= */
 .specialty-carousel {
   position: relative;
@@ -603,7 +599,7 @@ tbody tr:hover { background: rgba(0,212,255,0.03); }
 }
 
 /* =============================================
-   BARRA DE BÚSQUEDA
+   Barra de busqueda
    ============================================= */
 .search-bar {
   display: flex;
@@ -630,7 +626,7 @@ tbody tr:hover { background: rgba(0,212,255,0.03); }
 .search-input-wrap input { padding-left: 40px; }
 
 /* =============================================
-   TOAST
+   contenedor toast
    ============================================= */
 .toast-container {
   position: fixed;
@@ -661,7 +657,7 @@ tbody tr:hover { background: rgba(0,212,255,0.03); }
 .toast.success { border-left-color: var(--accent3); }
 
 /* =============================================
-   FILTROS
+   filtros 
    ============================================= */
 .filter-row {
   display: flex;
@@ -692,7 +688,7 @@ tbody tr:hover { background: rgba(0,212,255,0.03); }
 }
 
 /* =============================================
-   UTILIDADES
+   Utilidades
    ============================================= */
 .divider {
   border: none;
@@ -718,7 +714,7 @@ tbody tr:hover { background: rgba(0,212,255,0.03); }
 .section-gap { margin-top: 28px; }
 
 /* =============================================
-   DETALLE DE ATLETA
+   Detalle de atleta
    ============================================= */
 .detail-card {
   background: var(--card);
@@ -780,7 +776,7 @@ tbody tr:hover { background: rgba(0,212,255,0.03); }
 }
 
 /* =============================================
-   CONFIRM DIALOG
+       Dialogo de confirmacion
    ============================================= */
 .confirm-dialog {
   max-width: 400px;
@@ -807,6 +803,6 @@ tbody tr:hover { background: rgba(0,212,255,0.03); }
 }
 
 /* =============================================
-   EDIT FIELDS
+   fields de salida
    ============================================= */
 .edit-fields { display: flex; flex-direction: column; gap: 16px; }

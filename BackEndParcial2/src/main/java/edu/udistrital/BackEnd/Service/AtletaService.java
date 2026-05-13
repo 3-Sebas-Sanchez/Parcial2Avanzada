@@ -27,8 +27,14 @@ import org.springframework.stereotype.Service;
  */
 public class AtletaService {
     
-    public final AtletaRepository atletaRepository;
-    public final EmailService  emailService;
+    public  AtletaRepository atletaRepository;
+    public  EmailService  emailService;
+
+    public AtletaService(AtletaRepository atletaRepository) {
+        this.atletaRepository = atletaRepository;
+    }
+    
+    
     
         private AtletaResponse mapToResponse(Persona persona) {
             

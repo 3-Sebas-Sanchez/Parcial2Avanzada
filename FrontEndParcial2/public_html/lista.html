@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRIATLÓN — Lista</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="has-top-nav">
+
+<nav class="top-nav">
+  <div class="logo">
+    <a href="index.html" style="text-decoration: none;"><div class="logo-title">TRIATLÓN</div></a>
+  </div>
+  <div class="nav-links">
+    <a href="index.html" class="active">Salir</a>
+  </div>
+</nav>
+
+<nav class="sidebar">
+  <div class="logo">
+    <div class="logo-title">TRIATLÓN</div>
+    <div class="logo-sub">Sistema de Gestión</div>
+  </div>
+  <div class="nav-section">Principal</div>
+  <div class="nav-item" onclick="showPage('dashboard')">
+    <span class="material-icons-round">dashboard</span> Dashboard
+  </div>
+  <div class="nav-section">Atletas</div>
+  <div class="nav-item" onclick="showPage('registro')">
+    <span class="material-icons-round">person_add</span> Registrar Triatleta
+  </div>
+  <div class="nav-item active" onclick="showPage('lista')">
+    <span class="material-icons-round">people</span> Lista de Triatletas
+  </div>
+  <div class="nav-item" onclick="showPage('consulta')">
+    <span class="material-icons-round">search</span> Consultar Triatleta
+  </div>
+  <div class="nav-section">Gestión</div>
+  <div class="nav-item" onclick="showPage('modificar')">
+    <span class="material-icons-round">edit_note</span> Modificar Datos
+  </div>
+  <div class="nav-item" onclick="showPage('grupos')">
+    <span class="material-icons-round">group_work</span> Consultar Grupos
+  </div>
+  <div class="nav-item" onclick="showPage('eliminar')">
+    <span class="material-icons-round">person_remove</span> Eliminar Triatleta
+  </div>
+  <div class="sidebar-footer">
+    <div class="stats-pill">
+      <span style="font-size:11px;opacity:.7;letter-spacing:1px">TRIATLETAS</span>
+      <strong id="sidebar-count">0</strong>
+    </div>
+  </div>
+</nav>
+
+<main class="main">
+  <div class="page active">
+    <div class="page-header">
+      <div>
+        <div class="page-title">LISTA DE <span>TRIATLETAS</span></div>
+        <div class="page-sub">// Todos los deportistas registrados</div>
+      </div>
+      <button class="btn btn-primary" onclick="showPage('registro')">
+        <span class="material-icons-round">add</span> Nuevo
+      </button>
+    </div>
+
+    <div class="search-bar">
+      <div class="search-input-wrap" style="flex:2">
+        <span class="material-icons-round">search</span>
+        <input type="text" class="form-control" id="lista-search" placeholder="Buscar por nombre o ID..." oninput="renderLista()">
+      </div>
+      <select class="form-control" id="lista-filter-gen" style="width:160px" onchange="renderLista()">
+        <option value="">Todos los géneros</option>
+        <option value="M">Masculino</option>
+        <option value="F">Femenino</option>
+      </select>
+      <select class="form-control" id="lista-filter-spec" style="width:180px" onchange="renderLista()">
+        <option value="">Todas las especialidades</option>
+        <option value="Sprint">Sprint</option>
+        <option value="Olímpico">Olímpico</option>
+        <option value="Media Distancia">Media Distancia</option>
+        <option value="Ironman">Ironman</option>
+      </select>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Triatleta</th>
+            <th>ID</th>
+            <th>Edad</th>
+            <th>Género</th>
+            <th>Categoría</th>
+            <th>Especialidad</th>
+            <th>Cross</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="lista-tbody"></tbody>
+      </table>
+    </div>
+    <div id="lista-empty" class="empty-state" style="display:none">
+      <span class="material-icons-round">directions_bike</span>
+      <p>No hay triatletas registrados todavía</p>
+    </div>
+  </div>
+</main>
+
+<div class="modal-overlay" id="modal-delete">
+  <div class="modal confirm-dialog">
+    <div class="confirm-icon"><span class="material-icons-round" style="font-size:48px">warning_amber</span></div>
+    <div class="modal-title" style="color:var(--accent2);text-align:center">ELIMINAR TRIATLETA</div>
+    <div class="confirm-msg" id="del-confirm-msg"></div>
+    <div class="confirm-buttons">
+      <button class="btn btn-ghost" onclick="closeModal('modal-delete')">Cancelar</button>
+      <button class="btn btn-eliminar" id="del-confirm-btn">
+        <span class="material-icons-round">delete_forever</span> Confirmar Eliminación
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container" id="toast-container"></div>
+<script src="api.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

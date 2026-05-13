@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TRIATLÓN — Dashboard</title>
+<title>TRIATLÓN — Eliminar</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
@@ -25,7 +25,7 @@
     <div class="logo-sub">Sistema de Gestión</div>
   </div>
   <div class="nav-section">Principal</div>
-  <div class="nav-item active" onclick="showPage('dashboard')">
+  <div class="nav-item" onclick="showPage('dashboard')">
     <span class="material-icons-round">dashboard</span> Dashboard
   </div>
   <div class="nav-section">Atletas</div>
@@ -45,7 +45,7 @@
   <div class="nav-item" onclick="showPage('grupos')">
     <span class="material-icons-round">group_work</span> Consultar Grupos
   </div>
-  <div class="nav-item" onclick="showPage('eliminar')">
+  <div class="nav-item active" onclick="showPage('eliminar')">
     <span class="material-icons-round">person_remove</span> Eliminar Triatleta
   </div>
   <div class="sidebar-footer">
@@ -60,44 +60,40 @@
   <div class="page active">
     <div class="page-header">
       <div>
-        <div class="page-title">PANEL <span>PRINCIPAL</span></div>
-        <div class="page-sub">// Resumen del sistema de gestión</div>
+        <div class="page-title">ELIMINAR <span>TRIATLETA</span></div>
+        <div class="page-sub">// Dar de baja a un deportista</div>
       </div>
     </div>
-    <div class="grid-4" style="margin-bottom:24px">
-      <div class="stat-card" style="--accent-glow:rgba(0,212,255,0.1)">
-        <div class="stat-icon"><span class="material-icons-round">people</span></div>
-        <div class="stat-label">Total Triatletas</div>
-        <div class="stat-value" id="dash-total">0</div>
+
+    <div class="card" style="max-width:500px;margin-bottom:24px">
+      <div class="card-title"><span class="material-icons-round">person_remove</span> Buscar para Eliminar</div>
+      <div class="form-group">
+        <label class="form-label">ID del Triatleta</label>
+        <input type="text" class="form-control" id="del-id" placeholder="Número de identificación">
       </div>
-      <div class="stat-card" style="--accent-glow:rgba(57,255,20,0.08)">
-        <div class="stat-icon" style="color:var(--accent3)"><span class="material-icons-round">female</span></div>
-        <div class="stat-label">Femenino</div>
-        <div class="stat-value" id="dash-fem" style="color:var(--accent3)">0</div>
-      </div>
-      <div class="stat-card" style="--accent-glow:rgba(0,140,255,0.08)">
-        <div class="stat-icon" style="color:#5AB4FF"><span class="material-icons-round">male</span></div>
-        <div class="stat-label">Masculino</div>
-        <div class="stat-value" id="dash-masc" style="color:#5AB4FF">0</div>
-      </div>
-      <div class="stat-card" style="--accent-glow:rgba(150,100,255,0.08)">
-        <div class="stat-icon" style="color:#B08FFF"><span class="material-icons-round">directions_run</span></div>
-        <div class="stat-label">Modalidad Cross</div>
-        <div class="stat-value" id="dash-cross" style="color:#B08FFF">0</div>
-      </div>
+      <button class="btn btn-eliminar" onclick="buscarParaEliminar()">
+        <span class="material-icons-round">search</span> Buscar
+      </button>
     </div>
-    <div class="grid-2">
-      <div class="card">
-        <div class="card-title"><span class="material-icons-round">pool</span> Por Especialidad</div>
-        <div id="dash-specs" style="display:flex;flex-direction:column;gap:10px"></div>
-      </div>
-      <div class="card">
-        <div class="card-title"><span class="material-icons-round">category</span> Por Categoría</div>
-        <div id="dash-cats" style="display:flex;flex-direction:column;gap:10px"></div>
-      </div>
-    </div>
+
+    <div id="del-result"></div>
   </div>
 </main>
+
+<div class="modal-overlay" id="modal-delete">
+  <div class="modal confirm-dialog">
+    <div class="confirm-icon"><span class="material-icons-round" style="font-size:48px">warning_amber</span></div>
+    <div class="modal-title" style="color:var(--accent2);text-align:center">ELIMINAR TRIATLETA</div>
+    <div class="confirm-msg" id="del-confirm-msg"></div>
+    <div class="confirm-buttons">
+      <button class="btn btn-ghost" onclick="closeModal('modal-delete')">Cancelar</button>
+      <button class="btn btn-eliminar" id="del-confirm-btn">
+        <span class="material-icons-round">delete_forever</span> Confirmar Eliminación
+      </button>
+    </div>
+  </div>
+</div>
+
 <div class="toast-container" id="toast-container"></div>
 <script src="api.js"></script>
 <script src="app.js"></script>

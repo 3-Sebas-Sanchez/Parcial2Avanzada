@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRIATLÓN — Grupos</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="has-top-nav">
+
+<nav class="top-nav">
+  <div class="logo">
+    <a href="index.html" style="text-decoration: none;"><div class="logo-title">TRIATLÓN</div></a>
+  </div>
+  <div class="nav-links">
+    <a href="index.html" class="active">Salir</a>
+  </div>
+</nav>
+
+<nav class="sidebar">
+  <div class="logo">
+    <div class="logo-title">TRIATLÓN</div>
+    <div class="logo-sub">Sistema de Gestión</div>
+  </div>
+  <div class="nav-section">Principal</div>
+  <div class="nav-item" onclick="showPage('dashboard')">
+    <span class="material-icons-round">dashboard</span> Dashboard
+  </div>
+  <div class="nav-section">Atletas</div>
+  <div class="nav-item" onclick="showPage('registro')">
+    <span class="material-icons-round">person_add</span> Registrar Triatleta
+  </div>
+  <div class="nav-item" onclick="showPage('lista')">
+    <span class="material-icons-round">people</span> Lista de Triatletas
+  </div>
+  <div class="nav-item" onclick="showPage('consulta')">
+    <span class="material-icons-round">search</span> Consultar Triatleta
+  </div>
+  <div class="nav-section">Gestión</div>
+  <div class="nav-item" onclick="showPage('modificar')">
+    <span class="material-icons-round">edit_note</span> Modificar Datos
+  </div>
+  <div class="nav-item active" onclick="showPage('grupos')">
+    <span class="material-icons-round">group_work</span> Consultar Grupos
+  </div>
+  <div class="nav-item" onclick="showPage('eliminar')">
+    <span class="material-icons-round">person_remove</span> Eliminar Triatleta
+  </div>
+  <div class="sidebar-footer">
+    <div class="stats-pill">
+      <span style="font-size:11px;opacity:.7;letter-spacing:1px">TRIATLETAS</span>
+      <strong id="sidebar-count">0</strong>
+    </div>
+  </div>
+</nav>
+
+<main class="main">
+  <div class="page active">
+    <div class="page-header">
+      <div>
+        <div class="page-title">CONSULTAR <span>GRUPOS</span></div>
+        <div class="page-sub">// Filtrar triatletas por criterios</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:24px">
+      <div class="card-title"><span class="material-icons-round">filter_alt</span> Filtros de Grupo</div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end">
+        <div style="flex:1;min-width:150px">
+          <label class="form-label">Por Género</label>
+          <select class="form-control" id="grp-gen">
+            <option value="">Todos</option>
+            <option value="M">Masculino</option>
+            <option value="F">Femenino</option>
+          </select>
+        </div>
+        <div style="flex:1;min-width:150px">
+          <label class="form-label">Por Categoría</label>
+          <select class="form-control" id="grp-cat">
+            <option value="">Todas</option>
+            <option value="Junior">Junior (10-17)</option>
+            <option value="Sub-23">Sub-23 (18-22)</option>
+            <option value="Elite">Elite (23-39)</option>
+            <option value="Master A">Master A (40-49)</option>
+            <option value="Master B">Master B (50-59)</option>
+            <option value="Master C">Master C (60+)</option>
+          </select>
+        </div>
+        <div style="flex:1;min-width:150px">
+          <label class="form-label">Por Especialidad</label>
+          <select class="form-control" id="grp-spec">
+            <option value="">Todas</option>
+            <option value="Sprint">Sprint</option>
+            <option value="Olímpico">Olímpico</option>
+            <option value="Media Distancia">Media Distancia</option>
+            <option value="Ironman">Ironman</option>
+          </select>
+        </div>
+        <div style="flex:1;min-width:150px">
+          <label class="form-label">Modalidad Cross</label>
+          <select class="form-control" id="grp-cross">
+            <option value="">Todos</option>
+            <option value="si">Con Cross</option>
+            <option value="no">Sin Cross</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" onclick="consultarGrupo()" style="flex-shrink:0">
+          <span class="material-icons-round">group_work</span> Consultar
+        </button>
+      </div>
+    </div>
+
+    <div id="grupos-result"></div>
+  </div>
+</main>
+
+<div class="toast-container" id="toast-container"></div>
+<script src="api.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

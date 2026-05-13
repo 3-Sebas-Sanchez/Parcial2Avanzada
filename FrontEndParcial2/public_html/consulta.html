@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TRIATLÓN — Dashboard</title>
+<title>TRIATLÓN — Consultar</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
@@ -25,7 +25,7 @@
     <div class="logo-sub">Sistema de Gestión</div>
   </div>
   <div class="nav-section">Principal</div>
-  <div class="nav-item active" onclick="showPage('dashboard')">
+  <div class="nav-item" onclick="showPage('dashboard')">
     <span class="material-icons-round">dashboard</span> Dashboard
   </div>
   <div class="nav-section">Atletas</div>
@@ -35,7 +35,7 @@
   <div class="nav-item" onclick="showPage('lista')">
     <span class="material-icons-round">people</span> Lista de Triatletas
   </div>
-  <div class="nav-item" onclick="showPage('consulta')">
+  <div class="nav-item active" onclick="showPage('consulta')">
     <span class="material-icons-round">search</span> Consultar Triatleta
   </div>
   <div class="nav-section">Gestión</div>
@@ -60,44 +60,25 @@
   <div class="page active">
     <div class="page-header">
       <div>
-        <div class="page-title">PANEL <span>PRINCIPAL</span></div>
-        <div class="page-sub">// Resumen del sistema de gestión</div>
+        <div class="page-title">CONSULTAR <span>TRIATLETA</span></div>
+        <div class="page-sub">// Búsqueda por identificación</div>
       </div>
     </div>
-    <div class="grid-4" style="margin-bottom:24px">
-      <div class="stat-card" style="--accent-glow:rgba(0,212,255,0.1)">
-        <div class="stat-icon"><span class="material-icons-round">people</span></div>
-        <div class="stat-label">Total Triatletas</div>
-        <div class="stat-value" id="dash-total">0</div>
-      </div>
-      <div class="stat-card" style="--accent-glow:rgba(57,255,20,0.08)">
-        <div class="stat-icon" style="color:var(--accent3)"><span class="material-icons-round">female</span></div>
-        <div class="stat-label">Femenino</div>
-        <div class="stat-value" id="dash-fem" style="color:var(--accent3)">0</div>
-      </div>
-      <div class="stat-card" style="--accent-glow:rgba(0,140,255,0.08)">
-        <div class="stat-icon" style="color:#5AB4FF"><span class="material-icons-round">male</span></div>
-        <div class="stat-label">Masculino</div>
-        <div class="stat-value" id="dash-masc" style="color:#5AB4FF">0</div>
-      </div>
-      <div class="stat-card" style="--accent-glow:rgba(150,100,255,0.08)">
-        <div class="stat-icon" style="color:#B08FFF"><span class="material-icons-round">directions_run</span></div>
-        <div class="stat-label">Modalidad Cross</div>
-        <div class="stat-value" id="dash-cross" style="color:#B08FFF">0</div>
+
+    <div class="card" style="max-width:500px;margin-bottom:24px">
+      <div class="card-title"><span class="material-icons-round">manage_search</span> Buscar por ID</div>
+      <div style="display:flex;gap:12px">
+        <input type="text" class="form-control" id="consulta-id" placeholder="Ingresa el número de identificación" style="flex:1">
+        <button class="btn btn-primary" onclick="consultarPorId()">
+          <span class="material-icons-round">search</span> Buscar
+        </button>
       </div>
     </div>
-    <div class="grid-2">
-      <div class="card">
-        <div class="card-title"><span class="material-icons-round">pool</span> Por Especialidad</div>
-        <div id="dash-specs" style="display:flex;flex-direction:column;gap:10px"></div>
-      </div>
-      <div class="card">
-        <div class="card-title"><span class="material-icons-round">category</span> Por Categoría</div>
-        <div id="dash-cats" style="display:flex;flex-direction:column;gap:10px"></div>
-      </div>
-    </div>
+
+    <div id="consulta-result" style="display:none"></div>
   </div>
 </main>
+
 <div class="toast-container" id="toast-container"></div>
 <script src="api.js"></script>
 <script src="app.js"></script>

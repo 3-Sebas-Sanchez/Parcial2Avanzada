@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRIATLÓN — Modificar</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="has-top-nav">
+
+<nav class="top-nav">
+  <div class="logo">
+    <a href="index.html" style="text-decoration: none;"><div class="logo-title">TRIATLÓN</div></a>
+  </div>
+  <div class="nav-links">
+    <a href="index.html" class="active">Salir</a>
+  </div>
+</nav>
+
+<nav class="sidebar">
+  <div class="logo">
+    <div class="logo-title">TRIATLÓN</div>
+    <div class="logo-sub">Sistema de Gestión</div>
+  </div>
+  <div class="nav-section">Principal</div>
+  <div class="nav-item" onclick="showPage('dashboard')">
+    <span class="material-icons-round">dashboard</span> Dashboard
+  </div>
+  <div class="nav-section">Atletas</div>
+  <div class="nav-item" onclick="showPage('registro')">
+    <span class="material-icons-round">person_add</span> Registrar Triatleta
+  </div>
+  <div class="nav-item" onclick="showPage('lista')">
+    <span class="material-icons-round">people</span> Lista de Triatletas
+  </div>
+  <div class="nav-item" onclick="showPage('consulta')">
+    <span class="material-icons-round">search</span> Consultar Triatleta
+  </div>
+  <div class="nav-section">Gestión</div>
+  <div class="nav-item active" onclick="showPage('modificar')">
+    <span class="material-icons-round">edit_note</span> Modificar Datos
+  </div>
+  <div class="nav-item" onclick="showPage('grupos')">
+    <span class="material-icons-round">group_work</span> Consultar Grupos
+  </div>
+  <div class="nav-item" onclick="showPage('eliminar')">
+    <span class="material-icons-round">person_remove</span> Eliminar Triatleta
+  </div>
+  <div class="sidebar-footer">
+    <div class="stats-pill">
+      <span style="font-size:11px;opacity:.7;letter-spacing:1px">TRIATLETAS</span>
+      <strong id="sidebar-count">0</strong>
+    </div>
+  </div>
+</nav>
+
+<main class="main">
+  <div class="page active">
+    <div class="page-header">
+      <div>
+        <div class="page-title">MODIFICAR <span>DATOS</span></div>
+        <div class="page-sub">// Editar nombre, identificación o categoría</div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title"><span class="material-icons-round">search</span> Buscar Triatleta</div>
+        <div class="form-group">
+          <label class="form-label">ID del Triatleta</label>
+          <input type="text" class="form-control" id="mod-search-id" placeholder="Número de identificación">
+        </div>
+        <button class="btn btn-primary" onclick="buscarParaModificar()">
+          <span class="material-icons-round">search</span> Buscar
+        </button>
+        <div id="mod-not-found" style="display:none;margin-top:16px;color:var(--accent2);font-size:13px">
+          <span class="material-icons-round" style="vertical-align:middle;font-size:16px">error</span>
+          No se encontró ningún triatleta con ese ID.
+        </div>
+      </div>
+
+      <div class="card" id="mod-form-card" style="display:none">
+        <div class="card-title"><span class="material-icons-round">edit</span> Editar Campo</div>
+        <div id="mod-athlete-preview" style="margin-bottom:20px"></div>
+
+        <div class="form-group">
+          <label class="form-label">Tipo de modificación</label>
+          <select class="form-control" id="mod-tipo" onchange="toggleModTipo()">
+            <option value="campo">Un solo campo</option>
+            <option value="completo">Perfil completo</option>
+          </select>
+        </div>
+
+        <div id="mod-campo-wrap">
+          <div class="form-group">
+            <label class="form-label">Campo a modificar</label>
+            <select class="form-control" id="mod-campo" onchange="showModField()">
+              <option value="">Seleccionar campo</option>
+              <option value="nombre">Nombre</option>
+              <option value="id">Identificación</option>
+              <option value="categoria">Categoría</option>
+            </select>
+          </div>
+
+          <div id="mod-field-wrap" style="display:none">
+            <div class="form-group">
+              <label class="form-label" id="mod-field-label">Nuevo valor</label>
+              <div id="mod-field-input"></div>
+            </div>
+            <button class="btn btn-primary" onclick="aplicarModificacion()">
+              <span class="material-icons-round">save</span> Guardar Cambio
+            </button>
+          </div>
+        </div>
+
+        <div id="mod-completo-wrap" style="display:none">
+          <div class="form-group">
+            <label class="form-label">Nombre Completo</label>
+            <input type="text" class="form-control" id="edit-nombre">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Correo Electrónico</label>
+            <input type="email" class="form-control" id="edit-correo">
+          </div>
+          <div class="grid-2" style="gap:12px">
+            <div class="form-group">
+              <label class="form-label">Edad</label>
+              <input type="number" class="form-control" id="edit-edad" min="10" max="80">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Género</label>
+              <select class="form-control" id="edit-genero">
+                <option value="M">Masculino</option>
+                <option value="F">Femenino</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Especialidad</label>
+            <select class="form-control" id="edit-spec">
+              <option value="Sprint">Sprint</option>
+              <option value="Olímpico">Olímpico</option>
+              <option value="Media Distancia">Media Distancia</option>
+              <option value="Ironman">Ironman</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Foto (Opcional)</label>
+            <input type="file" class="form-control" id="edit-foto" accept="image/*" style="padding: 8px;">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Modalidad Cross</label>
+            <select class="form-control" id="edit-cross">
+              <option value="si">Sí participa</option>
+              <option value="no">No participa</option>
+            </select>
+          </div>
+          <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="aplicarModificacionCompleta()">
+            <span class="material-icons-round">save</span> Guardar Perfil Completo
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div class="toast-container" id="toast-container"></div>
+<script src="api.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

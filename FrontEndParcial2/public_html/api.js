@@ -77,24 +77,24 @@ const API = {
         return await resp.json();
     },
 
-    // Filtros
+    // Filtros - Usar query params correctamente
     async filtrarPorGenero(genero) {
-        const resp = await fetch(`${API_BASE}/genero?genero=${encodeURIComponent(genero)}`);
+        const resp = await fetch(`${API_BASE}?genero=${encodeURIComponent(genero)}`);
         return resp.ok ? await resp.json() : [];
     },
 
     async filtrarPorCategoria(categoria) {
-        const resp = await fetch(`${API_BASE}/categoria?categoria=${encodeURIComponent(categoria)}`);
+        const resp = await fetch(`${API_BASE}?categoria=${encodeURIComponent(categoria)}`);
         return resp.ok ? await resp.json() : [];
     },
 
     async filtrarPorEspecialidad(especialidad) {
-        const resp = await fetch(`${API_BASE}/especialidad?especialidad=${encodeURIComponent(especialidad)}`);
+        const resp = await fetch(`${API_BASE}?especialidad=${encodeURIComponent(especialidad)}`);
         return resp.ok ? await resp.json() : [];
     },
 
     async filtrarPorCross(modalidadCross) {
-        const resp = await fetch(`${API_BASE}/cross?modalidadCross=${modalidadCross}`);
+        const resp = await fetch(`${API_BASE}?modalidadCross=${modalidadCross}`);
         return resp.ok ? await resp.json() : [];
     }
 };

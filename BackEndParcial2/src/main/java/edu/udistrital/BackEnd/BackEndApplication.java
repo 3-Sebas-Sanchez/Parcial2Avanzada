@@ -3,9 +3,11 @@ package edu.udistrital.BackEnd;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+@Configuration
 @SpringBootApplication
 public class BackEndApplication {
 
@@ -20,7 +22,7 @@ public class BackEndApplication {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-
+                        .allowedOrigins("*")
                         .allowedOrigins(
                             "http://localhost:3000",
                             "http://localhost:4200",

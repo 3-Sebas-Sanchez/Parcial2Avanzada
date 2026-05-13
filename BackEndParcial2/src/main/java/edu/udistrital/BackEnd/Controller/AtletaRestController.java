@@ -44,6 +44,8 @@ public class AtletaRestController {
     public ResponseEntity<AtletaResponse> registrar(@Valid @RequestBody AtletaDTO dto) {
         return new ResponseEntity<>(atletaService.registrarAtleta(dto), HttpStatus.CREATED);
     }
+    
+    
 
     /**
      * Obtiene un triatleta por su número de identificación.
@@ -56,16 +58,40 @@ public class AtletaRestController {
     public ResponseEntity<AtletaResponse> obtenerPorIdentificacion(@PathVariable String identificacion) {
         return ResponseEntity.ok(atletaService.consultarPorIdentificacion(identificacion));
     }
+    
 
     /**
      * Lista todos los triatletas registrados en el sistema.
      * 
      * @return Lista de AtletaResponse con todos los triatletas
      */
-    @RequestMapping(method = RequestMethod.GET)
-    public List<AtletaResponse> listarTodos() {
-        return atletaService.listarTodos();
-    }
+        @RequestMapping(method = RequestMethod.GET)
+        public List<AtletaResponse> listarTodos(
+                @RequestParam(required = false) String genero,
+                @RequestParam(required = false) String categoria,
+                @RequestParam(required = false) String especialidad,
+                @RequestParam(required = false) Boolean modalidadCross) {
+
+            // Si hay filtro de genero
+            if (genero != null && !genero.isEmpty()) {
+                return atletaService.listarPorGenero(genero);
+            }
+            // Si hay filtro de categoria
+            if (categoria != null && !categoria.isEmpty()) {
+                return atletaService.listarPorCategoria(categoria);
+            }
+            // Si hay filtro de especialidad
+            if (especialidad != null && !especialidad.isEmpty()) {
+                return atletaService.listarPorEspecialidad(especialidad);
+            }
+            // Si hay filtro de modalidad cross
+            if (modalidadCross != null) {
+                return atletaService.listarPorModalidadCross(modalidadCross);
+            }
+
+            // Sin filtros, retorna todos
+            return atletaService.listarTodos();
+        }
 
     /**
      * Elimina un triatleta del sistema por su identificación.
@@ -78,6 +104,8 @@ public class AtletaRestController {
         atletaService.eliminarAtleta(identificacion);
         return ResponseEntity.noContent().build();
     }
+    
+    
 
     /**
      * Actualiza el nombre de un triatleta (PATCH - actualización parcial).
@@ -92,6 +120,8 @@ public class AtletaRestController {
             @RequestParam String nuevoNombre) {
         return ResponseEntity.ok(atletaService.actualizarNombre(identificacion, nuevoNombre));
     }
+    
+    
 
     /**
      * Actualiza el número de identificación de un triatleta (PATCH - actualización parcial).
@@ -106,6 +136,8 @@ public class AtletaRestController {
             @RequestParam String nuevaIdentificacion) {
         return ResponseEntity.ok(atletaService.actualizarIdentificacion(identificacion, nuevaIdentificacion));
     }
+    
+    
 
     /**
      * Actualiza la categoría de un triatleta (PATCH - actualización parcial).
@@ -120,6 +152,8 @@ public class AtletaRestController {
             @RequestParam String nuevaCategoria) {
         return ResponseEntity.ok(atletaService.actualizarCategoria(identificacion, nuevaCategoria));
     }
+    
+    
 
     /**
      * Filtra triatletas por género.
@@ -181,4 +215,6 @@ public class AtletaRestController {
             @Valid @RequestBody AtletaDTO dto) {
         return ResponseEntity.ok(atletaService.actualizarAtletaCompleto(identificacion, dto));
     }
+    
+    
 }

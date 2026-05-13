@@ -27,17 +27,10 @@ import org.springframework.stereotype.Service;
  */
 public class AtletaService {
     
-    public  AtletaRepository atletaRepository;
-    public  EmailService  emailService;
-
-    public AtletaService(AtletaRepository atletaRepository) {
-        this.atletaRepository = atletaRepository;
-    }
+    private final AtletaRepository atletaRepository;
+    private final EmailService emailService;
     
-    
-    
-        private AtletaResponse mapToResponse(Persona persona) {
-            
+    private AtletaResponse mapToResponse(Persona persona) {
         AtletaResponse response = new AtletaResponse();
         
         // Mapeo de campos de Persona
@@ -57,31 +50,28 @@ public class AtletaService {
         }
         
         return response;
-        }
-        
+    }
+    
     private String calcularCategoria(int edad) {
-        
         // 1. Si es menor, arrojamos el error para que viaje al FrontEnd
         if (edad < 7) {
             throw new RuntimeException("La edad mínima permitida para competir es de 7 años.");
         }
         
         //// Categorías en Edad Escolar:
-            
         if (edad == 7) return "Pre-benjamín";
         if (edad >= 8 && edad <= 9) return "Benjamín";
         if (edad >= 10 && edad <= 11) return "Alevín";
         if (edad >= 12 && edad <= 13) return "Infantil";
         
-         /////Categorías:
-
+        /////Categorías:
         if (edad >= 14 && edad <= 15) return "Cadete";
         if (edad >= 16 && edad <= 17) return "Juvenil";
         if (edad >= 18 && edad <= 19) return "Junior";
         if (edad >= 20 && edad <= 23) return "Sub23";
         if (edad >= 24 && edad <= 39) return  "Absoluta";
         if (edad >= 40 && edad <= 49) return "Veterano 1";
-        if (edad >= 50&& edad <= 59) return "Veterano 2";
+        if (edad >= 50 && edad <= 59) return "Veterano 2";
         //  Si tiene 60 o más. 
         return "Veterano 3";
     }
@@ -91,7 +81,7 @@ public class AtletaService {
                 .map(this::mapToResponse)
                 .orElseThrow(() -> new RuntimeException("Atleta no encontrado"));
     }
-        
+    
     public List<AtletaResponse> listarPorGenero(String genero) {
         return atletaRepository.findByGenero(genero).stream().map(this::mapToResponse).collect(Collectors.toList());
     }
@@ -112,7 +102,7 @@ public class AtletaService {
         return atletaRepository.findAll().stream().map(this::mapToResponse).collect(Collectors.toList());
     }
     
-        @Transactional
+    @Transactional
     public AtletaResponse actualizarNombre(String identificacion, String nuevoNombre) {
         int filasAfectadas = atletaRepository.actualizarNombre(identificacion, nuevoNombre);
         if (filasAfectadas == 0) throw new RuntimeException("No se pudo actualizar el nombre");
@@ -134,10 +124,10 @@ public class AtletaService {
         return consultarPorIdentificacion(identificacion);
     }
     
-     /**
+    /**
      * Valida que la especialidad (distancia) sea permitida para la categoría del atleta.
      * • Cadete - Distancia Sprint
-     * • Júnior - Distancias Sprint y Estándar
+     * • Junior - Distancias Sprint y Estándar
      */
     private void validarEspecialidad(String categoria, String especialidad) {
         if ("Cadete".equalsIgnoreCase(categoria)) {
@@ -151,7 +141,7 @@ public class AtletaService {
         }
     }
     
-        @Transactional
+    @Transactional
     public void eliminarAtleta(String identificacion) {
         atletaRepository.deleteByIdentificacion(identificacion);
     }
@@ -209,9 +199,4 @@ public class AtletaService {
         // Recuperar y retornar el atleta actualizado
         return mapToResponse(atletaRepository.findById(id).get());
     }
-    
-    
-    
-    
-    
 }

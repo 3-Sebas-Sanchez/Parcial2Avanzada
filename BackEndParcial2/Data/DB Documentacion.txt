@@ -1,0 +1,27 @@
+================================================================================
+                    DOCUMENTACIÓN API REST - SISTEMA DE ATLETAS
+================================================================================
+
+================================================================================
+                            CONFIGURACIÓN BASE DE DATOS
+================================================================================
+
+Driver: H2 Database (org.h2.Driver)
+URL: jdbc:h2:mem:atletas
+Usuario: sa
+Contraseña: (vacía)
+DDL Mode: update (crea/actualiza tablas automáticamente)
+
+Tabla: ATLETA_DTO
+Columnas:
+  - id (Long) - PRIMARY KEY, IDENTITY, AUTO INCREMENT
+  - nombre (String) - NOT NULL, REQUIRED
+  - identificacion (String) - UNIQUE, NOT NULL, REQUIRED
+  - genero (String) - NOT NULL, REQUIRED
+  - correo (String) - UNIQUE, NOT NULL, REQUIRED, VALID EMAIL
+  - edad (Integer) - NOT NULL, REQUIRED
+  - categoria (String) - Calculada automáticamente según edad
+  - especialidad (String) - NOT NULL, REQUIRED
+  - modalidad_cross (Boolean) - NULL BY DEFAULT
+  - foto (String) - NULL BY DEFAULT
+  - persona_activa (Boolean) - DEFAULT TRUE

@@ -1,0 +1,126 @@
+================================================================================
+                    DOCUMENTACIÓN API REST - SISTEMA DE ATLETAS
+================================================================================
+
+================================================================================
+                        ENDPOINTS DE LA API
+================================================================================
+
+- Puerto: 9000
+- URL Base: http://localhost:9000/api/atletas
+
+1. REGISTRAR UN NUEVO ATLETA
+================================================================================
+Método: POST
+Ruta: http://localhost:9000/api/atletas/atleta
+
+Content-Type: application/json
+Response: 201 Created
+
+2. OBTENER ATLETA POR IDENTIFICACIÓN
+================================================================================
+Método: GET
+Ruta: http://localhost:9000/api/atletas/{identificacion}
+
+Response: 200 OK
+
+3. LISTAR TODOS LOS ATLETAS
+================================================================================
+Método: GET
+Ruta: http://localhost:9000/api/atletas
+
+Response: 200 OK
+
+
+4. FILTRAR ATLETAS POR GÉNERO
+================================================================================
+Método: GET
+Ruta: http://localhost:9000/api/atletas/genero
+
+Response: 200 OK
+
+
+5. FILTRAR ATLETAS POR CATEGORÍA
+================================================================================
+Método: GET
+Ruta: http://localhost:9000/api/atletas/categoria
+
+Response: 200 OK
+
+6. FILTRAR ATLETAS POR ESPECIALIDAD
+================================================================================
+Método: GET
+Ruta: http://localhost:9000/api/atletas/especialidad
+
+
+Response: 200 OK
+
+7. FILTRAR ATLETAS POR MODALIDAD CROSS
+================================================================================
+Método: GET
+Ruta: http://localhost:9000/api/atletas/cross
+
+
+Response: 200 OK
+
+8. ACTUALIZAR NOMBRE DEL ATLETA
+================================================================================
+Método: PATCH
+Ruta: http://localhost:9000/api/atletas/{identificacion}/nombre
+
+Response: 200 OK
+
+9. ACTUALIZAR IDENTIFICACIÓN DEL ATLETA
+================================================================================
+Método: PATCH
+Ruta: http://localhost:9000/api/atletas/{identificacion}/identificacion
+
+Response: 200 OK
+
+10. ACTUALIZAR CATEGORÍA DEL ATLETA
+================================================================================
+Método: PATCH
+Ruta: http://localhost:9000/api/atletas/{identificacion}/categoria
+
+
+Response: 200 OK
+
+11. ACTUALIZAR TODA LA INFORMACIÓN DEL ATLETA
+================================================================================
+Método: PUT
+Ruta: http://localhost:9000/api/atletas/{id}
+
+Response: 200 OK
+
+
+12. ELIMINAR UN ATLETA
+================================================================================
+Método: DELETE
+Ruta: http://localhost:9000/api/atletas/delete/{identificacion}
+
+Response: 204 No Content
+
+================================================================================
+                        CÓDIGOS DE RESPUESTA HTTP
+================================================================================
+
+200 OK - Solicitud exitosa
+201 Created - Recurso creado exitosamente
+204 No Content - Eliminación exitosa
+400 Bad Request - Datos inválidos o faltantes
+404 Not Found - Recurso no encontrado
+500 Internal Server Error - Error del servidor
+
+
+================================================================================
+                    INFORMACIÓN DE EMAIL (NOTIFICACIÓN)
+================================================================================
+
+Cuando un atleta se registra correctamente, se envía un correo de bienvenida:
+
+Host SMTP: smtp.gmail.com
+Puerto: 587
+Usuario: apiatleta@gmail.com
+Autenticación: TLS
+Contenido: Correo de bienvenida personalizado
+

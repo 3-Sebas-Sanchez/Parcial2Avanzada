@@ -44,54 +44,6 @@ public class AtletaRestController {
     public ResponseEntity<AtletaResponse> registrar(@Valid @RequestBody AtletaDTO dto) {
         return new ResponseEntity<>(atletaService.registrarAtleta(dto), HttpStatus.CREATED);
     }
-    
-    
-
-    /**
-     * Obtiene un triatleta por su número de identificación.
-     * 
-     * @param identificacion Número de identificación único del triatleta (cédula)
-     * @return ResponseEntity con AtletaResponse encontrado
-     * @throws RuntimeException si el triatleta no existe
-     */
-    @RequestMapping(value = "/{identificacion}", method = RequestMethod.GET)
-    public ResponseEntity<AtletaResponse> obtenerPorIdentificacion(@PathVariable String identificacion) {
-        return ResponseEntity.ok(atletaService.consultarPorIdentificacion(identificacion));
-    }
-    
-
-    /**
-     * Lista todos los triatletas registrados en el sistema.
-     * 
-     * @return Lista de AtletaResponse con todos los triatletas
-     */
-        @RequestMapping(method = RequestMethod.GET)
-        public List<AtletaResponse> listarTodos(
-                @RequestParam(required = false) String genero,
-                @RequestParam(required = false) String categoria,
-                @RequestParam(required = false) String especialidad,
-                @RequestParam(required = false) Boolean modalidadCross) {
-
-            // Si hay filtro de genero
-            if (genero != null && !genero.isEmpty()) {
-                return atletaService.listarPorGenero(genero);
-            }
-            // Si hay filtro de categoria
-            if (categoria != null && !categoria.isEmpty()) {
-                return atletaService.listarPorCategoria(categoria);
-            }
-            // Si hay filtro de especialidad
-            if (especialidad != null && !especialidad.isEmpty()) {
-                return atletaService.listarPorEspecialidad(especialidad);
-            }
-            // Si hay filtro de modalidad cross
-            if (modalidadCross != null) {
-                return atletaService.listarPorModalidadCross(modalidadCross);
-            }
-
-            // Sin filtros, retorna todos
-            return atletaService.listarTodos();
-        }
 
     /**
      * Elimina un triatleta del sistema por su identificación.
@@ -154,51 +106,6 @@ public class AtletaRestController {
     }
     
     
-
-    /**
-     * Filtra triatletas por género.
-     * 
-     * @param genero Género a filtrar ('M' o 'F')
-     * @return Lista de AtletaResponse con el género especificado
-     */
-    @RequestMapping(value = "/genero", method = RequestMethod.GET)
-    public List<AtletaResponse> listarPorGenero(@RequestParam String genero) {
-        return atletaService.listarPorGenero(genero);
-    }
-
-    /**
-     * Filtra triatletas por categoría.
-     * 
-     * @param categoria Categoría a filtrar
-     * @return Lista de AtletaResponse de la categoría especificada
-     */
-    @RequestMapping(value = "/categoria", method = RequestMethod.GET)
-    public List<AtletaResponse> listarPorCategoria(@RequestParam String categoria) {
-        return atletaService.listarPorCategoria(categoria);
-    }
-
-    /**
-     * Filtra triatletas por especialidad/distancia.
-     * 
-     * @param especialidad Especialidad a filtrar (Sprint, Olímpico, etc.)
-     * @return Lista de AtletaResponse de la especialidad especificada
-     */
-    @RequestMapping(value = "/especialidad", method = RequestMethod.GET)
-    public List<AtletaResponse> listarPorEspecialidad(@RequestParam String especialidad) {
-        return atletaService.listarPorEspecialidad(especialidad);
-    }
-
-    /**
-     * Filtra triatletas por modalidad Cross.
-     * 
-     * @param modalidadCross true para triatletas con modalidad Cross, false para los que no
-     * @return Lista de AtletaResponse con la modalidad Cross especificada
-     */
-    @RequestMapping(value = "/cross", method = RequestMethod.GET)
-    public List<AtletaResponse> listarPorModalidadCross(@RequestParam Boolean modalidadCross) {
-        return atletaService.listarPorModalidadCross(modalidadCross);
-    }
-    
     /**
      * Actualización completa de un triatleta (PUT - reemplaza todos los campos).
      * 
@@ -215,6 +122,51 @@ public class AtletaRestController {
             @Valid @RequestBody AtletaDTO dto) {
         return ResponseEntity.ok(atletaService.actualizarAtletaCompleto(identificacion, dto));
     }
+    
+        /**
+     * Obtiene un triatleta por su número de identificación.
+     * 
+     * @param identificacion Número de identificación único del triatleta (cédula)
+     * @return ResponseEntity con AtletaResponse encontrado
+     * @throws RuntimeException si el triatleta no existe
+     */
+    @RequestMapping(value = "/{identificacion}", method = RequestMethod.GET)
+    public ResponseEntity<AtletaResponse> obtenerPorIdentificacion(@PathVariable String identificacion) {
+        return ResponseEntity.ok(atletaService.consultarPorIdentificacion(identificacion));
+    }
+    
+    /**
+     * Lista todos los triatletas registrados en el sistema.
+     * 
+     * @return Lista de AtletaResponse con todos los triatletas
+     */
+        @RequestMapping(method = RequestMethod.GET)
+        public List<AtletaResponse> listarTodos(
+                @RequestParam(required = false) String genero,
+                @RequestParam(required = false) String categoria,
+                @RequestParam(required = false) String especialidad,
+                @RequestParam(required = false) Boolean modalidadCross) {
+
+            // Si hay filtro de genero
+            if (genero != null && !genero.isEmpty()) {
+                return atletaService.listarPorGenero(genero);
+            }
+            // Si hay filtro de categoria
+            if (categoria != null && !categoria.isEmpty()) {
+                return atletaService.listarPorCategoria(categoria);
+            }
+            // Si hay filtro de especialidad
+            if (especialidad != null && !especialidad.isEmpty()) {
+                return atletaService.listarPorEspecialidad(especialidad);
+            }
+            // Si hay filtro de modalidad cross
+            if (modalidadCross != null) {
+                return atletaService.listarPorModalidadCross(modalidadCross);
+            }
+
+            // Sin filtros, retorna todos
+            return atletaService.listarTodos();
+        }
     
     
 }

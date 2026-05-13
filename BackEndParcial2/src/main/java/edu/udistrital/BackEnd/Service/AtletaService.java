@@ -61,8 +61,13 @@ public class AtletaService {
         
     private String calcularCategoria(int edad) {
         
+        // 1. Si es menor, arrojamos el error para que viaje al FrontEnd
+        if (edad < 7) {
+            throw new RuntimeException("La edad mínima permitida para competir es de 7 años.");
+        }
+        
         //// Categorías en Edad Escolar:
-
+            
         if (edad == 7) return "Pre-benjamín";
         if (edad >= 8 && edad <= 9) return "Benjamín";
         if (edad >= 10 && edad <= 11) return "Alevín";
@@ -77,8 +82,8 @@ public class AtletaService {
         if (edad >= 24 && edad <= 39) return  "Absoluta";
         if (edad >= 40 && edad <= 49) return "Veterano 1";
         if (edad >= 50&& edad <= 59) return "Veterano 2";
-        if (edad >= 60) return "Veterano 3";
-        return "Error";
+        //  Si tiene 60 o más. 
+        return "Veterano 3";
     }
     
     public AtletaResponse consultarPorIdentificacion(String identificacion) {

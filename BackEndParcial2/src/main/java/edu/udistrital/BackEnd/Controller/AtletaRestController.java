@@ -101,4 +101,8 @@ public class AtletaRestController {
         return atletaService.listarPorModalidadCross(modalidadCross);
     }
     
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<AtletaResponse> actualizarAtletaCompleto(@PathVariable Long id,  @Valid @RequestBody AtletaDTO dto) {
+        return ResponseEntity.ok(atletaService.actualizarAtletaCompleto(id, dto));
+    }
 }

@@ -179,6 +179,37 @@ public class AtletaService {
         return mapToResponse(guardado);
     }
     
+    @Transactional
+    public AtletaResponse actualizarAtletaCompleto(Long id, AtletaDTO dto) {
+        // Validar que el atleta existe
+        AtletaDTO atletaExistente = atletaRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Atleta no encontrado"));
+
+        // Validar especialidad con la nueva categoría
+        validarEspecialidad(dto.getCategoria(), dto.getEspecialidad());
+
+        // Ejecutar actualización
+        int filasAfectadas = atletaRepository.actualizarAtletaCompleto(
+            id,
+            dto.getNombre(),
+            dto.getIdentificacion(),
+            dto.getGenero(),
+            dto.getCorreo(),
+            dto.getEdad(),
+            dto.getCategoria(),
+            dto.getEspecialidad(),
+            dto.getModalidadCross(),
+            dto.getFoto()
+        );
+
+        if (filasAfectadas == 0) {
+            throw new RuntimeException("No se pudo actualizar el atleta");
+        }
+
+        // Recuperar y retornar el atleta actualizado
+        return mapToResponse(atletaRepository.findById(id).get());
+    }
+    
     
     
     

@@ -57,6 +57,22 @@ public interface AtletaRepository extends JpaRepository<AtletaDTO, Long>{
     @Query ("UPDATE AtletaDTO a SET a.categoria =:nuevaCategoria WHERE a.identificacion =:identificacion")
     int actualizarCategoria(@Param ("identificacion") String identificacion, @Param ("nuevaCategoria") String nuevaCategoria);
     
+   @Modifying
+   @Transactional
+   @Query("UPDATE AtletaDTO a SET a.nombre = :nombre, a.identificacion = :identificacion, a.genero = :genero, a.correo = :correo, a.edad = :edad, a.categoria = :categoria, a.especialidad = :especialidad, a.modalidadCross = :modalidadCross, a.foto = :foto WHERE a.id = :id")
+   int actualizarAtletaCompleto(
+       @Param("id") Long id,
+       @Param("nombre") String nombre,
+       @Param("identificacion") String identificacion,
+       @Param("genero") String genero,
+       @Param("correo") String correo,
+       @Param("edad") Integer edad,
+       @Param("categoria") String categoria,
+       @Param("especialidad") String especialidad,
+       @Param("modalidadCross") Boolean modalidadCross,
+       @Param("foto") String foto
+   );
+    
     
     
 }
